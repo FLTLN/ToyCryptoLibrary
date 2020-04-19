@@ -15,7 +15,26 @@ jobs:
       run: lscpu
     - name: Build all
       run: | 
-        cmake .
-        make -j8
+        cmake . &> cmake.log
+        make -j8 &> make.log
+        
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: cmake log
+        path: cmake.log
+
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: make log
+        path: make.log
+          
     - name: Run
-      run: ./t_version
+      run: ./t_version &> execution.log
+
+    - uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: execution log
+        path: execution.log
