@@ -11,40 +11,39 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: System info
-      run: lscpu
-    - name: Build all
-      run: | 
-        cmake . &> cmake.log
-        make -j8 &> make.log
+    - name: cmake
+      run: cmake . &> cmake.log 
         
-    - name: Upload CMake log.  
+    - name: upload cmake log  
       uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: CMake log.
+        name: cmake log
         path: cmake.log
+        
+    - name: make
+      run: make -j8 &> make.log
 
-    - name: Upload make log.
+    - name: upload make log
       uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: make log.
+        name: make log
         path: make.log
           
-    - name: Run
-      run: ./t_version &> execution.log
+    - name: run tests
+      run: ./t_version &> tests.log
     
-    - name: Upload execution log.
+    - name: upload tests execution log
       uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: Execution log.
-        path: execution.log
+        name: tests execution log
+        path: tests.log
         
     - name: Upload binaries.
       uses: actions/upload-artifact@v1
       if: success()
       with:
-        name: Static library.
+        name: static library
         path: libtcl.a
