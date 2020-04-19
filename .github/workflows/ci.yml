@@ -20,18 +20,18 @@ jobs:
         
     - uses: actions/upload-artifact@v1
       with:
-        name: cmake.log
-        path: .
+        name: cmake log
+        path: cmake.log
 
     - uses: actions/upload-artifact@v1
       with:
-        name: make.log
-        path: .
+        name: make log
+        path: make.log
           
     - name: Run
       run: ./t_version > execution.log
 
     - uses: actions/upload-artifact@v1
       with:
-        name: execution.log
-        path: .
+        name: execution log
+        path: execution.log
