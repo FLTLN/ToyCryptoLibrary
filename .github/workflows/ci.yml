@@ -15,7 +15,7 @@ jobs:
       run: lscpu
     - name: Build all
       run: | 
-        cmake .
-        make -j8
+        cmake . > cmake.log
+        make -j8 > make.log
     - name: Run
-      run: ./t_version
+      run: ./t_version execution.log
