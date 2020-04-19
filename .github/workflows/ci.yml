@@ -17,5 +17,21 @@ jobs:
       run: | 
         cmake . > cmake.log
         make -j8 > make.log
+        
+    - uses: actions/upload-artifact@v1
+      with:
+        name: cmake.log
+        path: .
+
+    - uses: actions/upload-artifact@v1
+      with:
+        name: make.log
+        path: .
+          
     - name: Run
-      run: ./t_version execution.log
+      run: ./t_version > execution.log
+
+    - uses: actions/upload-artifact@v1
+      with:
+        name: execution.log
+        path: .
