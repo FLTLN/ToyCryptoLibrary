@@ -22,5 +22,5 @@ int main()
 {
     struct version v = getVersion();
     std::cout << v.major << "." << v.minor << "." << v.update << "\n";
-    return 0;
+    return 1;
 }
