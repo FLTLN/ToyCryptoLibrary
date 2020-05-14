@@ -10,6 +10,5 @@ else std::cout << "\nTest failed\n\n";
 int main()
 {
     EXECUTE_TEST(aes_key_expansion_noop)
-    std::cout << "ok";
     return 0;
 }
