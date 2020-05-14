@@ -32,11 +32,11 @@ jobs:
         path: make.log
           
     - name: run tests
-      run: cd test && pwd && ./tests &> tests.log
+      run: cd build/test && ./tests &> tests.log
     
     - name: upload tests execution log
       uses: actions/upload-artifact@v1
       if: failure()
       with:
         name: tests execution log
-        path: tests.log
+        path: build/test/tests.log
