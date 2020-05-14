@@ -32,7 +32,7 @@ jobs:
         path: make.log
           
     - name: run tests
-      run: cd build/test && pwd
+      run: cd build && pwd && ls
     
     - name: upload tests execution log
       uses: actions/upload-artifact@v1
