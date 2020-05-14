@@ -1,0 +1,5 @@
+file(GLOB LIB_HEADERS
+    "*.h"
+)
+
+set(LIB_HEADERS ${LIB_HEADERS} PARENT_SCOPE)
