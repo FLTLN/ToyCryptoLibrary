@@ -2,10 +2,12 @@
 std::cout << "───────────────────────────────────────────────\n";   \
 std::cout << "Test: " << #test << "\n";                             \
 std::cout << "───────────────────────────────────────────────\n";   \
-std::cout << "Test output:\n\n";                                      \
+std::cout << "Test output:\n";                                      \
 all++;                                                              \
 std::cout << "───────────────────────────────────────────────\n";   \
-if(test()) {std::cout << "Test passed\n"; passed++;}                \
+if(test())                                                          \
+{ std::cout << "───────────────────────────────────────────────\n"  \
+            << "Test passed\n"; passed++;}                          \
 else {std::cout << "Test failed\n"; isFailed = true; failed++;}     \
 std::cout << "───────────────────────────────────────────────\n\n";
 
@@ -18,7 +20,10 @@ int main()
     int passed = 0;
     int failed = 0;
     int all = 0;
-    EXECUTE_TEST(aes_key_expansion_noop)
+    
+    EXECUTE_TEST(t_aes_expandKey_128_noop)
+    EXECUTE_TEST(t_aes_encrypt_ecb_128_noop)
+    EXECUTE_TEST(t_aes_encrypt_ecb_128_noop_cat)
 
     std::cout << "Testing done\n";
     std::cout << "───────────────────────────────────────────────\n";
