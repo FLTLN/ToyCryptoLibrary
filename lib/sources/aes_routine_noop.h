@@ -31,4 +31,13 @@ void shiftRows(uint32_t* state);
 // column as a four-term polynomial as described in NIST FIPS 197 Sec. 4.3.
 void mixColumns(uint32_t* state);
 
+// invShiftRows() is the inverse of the shiftRows() transformation. 
+void invShiftRows(uint32_t* state);
+
+// invSubBytes() is the inverse of the subBytes() transformation.
+void invSubBytes(uint32_t* state);
+
+// invMixColumns() is the inverse of the mixColumns() transformation.
+void invMixColumns(uint32_t* state);
+
 #endif // __AES_ROUTINE_H_

@@ -24,6 +24,8 @@ int main()
     EXECUTE_TEST(t_aes_expandKey_128_noop)
     EXECUTE_TEST(t_aes_encrypt_ecb_128_noop)
     EXECUTE_TEST(t_aes_encrypt_ecb_128_noop_cat)
+    EXECUTE_TEST(t_aes_decrypt_ecb_128_noop)
+    EXECUTE_TEST(t_aes_decrypt_ecb_128_noop_cat)
 
     std::cout << "Testing done\n";
     std::cout << "───────────────────────────────────────────────\n";
