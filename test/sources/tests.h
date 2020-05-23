@@ -12,5 +12,7 @@ extern "C"
 bool t_aes_expandKey_128_noop();
 bool t_aes_encrypt_ecb_128_noop();
 bool t_aes_encrypt_ecb_128_noop_cat();
+bool t_aes_decrypt_ecb_128_noop();
+bool t_aes_decrypt_ecb_128_noop_cat();
 
 #endif // __TESTS_H_
