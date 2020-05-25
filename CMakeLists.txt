@@ -11,4 +11,5 @@ message (STATUS "CMAKE_CXX_COMPILER_ID ................. " ${CMAKE_CXX_COMPILER_
 
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/lib")
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/test")
+add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/perf")
 
