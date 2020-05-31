@@ -4,6 +4,8 @@
 #include "aes_routine_noop.h"
 #include "aes_lookup_tables.h"
 
+// AES 128 ECB encryption. No optimizations.
+
 void aes_encrypt_ecb_128_noop(uint8_t* input, uint8_t* output, uint32_t byteLen, uint8_t* keySchedule)
 {
     uint32_t nBlocks = byteLen / AES_BLOCK_SIZE;

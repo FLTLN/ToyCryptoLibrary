@@ -1,6 +1,0 @@
-file(GLOB TEST_LIB_SOURCES
-    "*.cpp"
-    "*.h"
-)
-
-set(TEST_LIB_SOURCES ${TEST_LIB_SOURCES} PARENT_SCOPE)

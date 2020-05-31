@@ -1,6 +1,8 @@
 #ifndef __AES_ROUTINE_H_
 #define __AES_ROUTINE_H_
 
+// This header contain functions that performs transformations described in standart.
+
 // rotWord() is a function used in the Key Expansion routine that takes a four-byte
 // word and performs a cyclic permutation. 
 void rotWord(uint32_t* src, uint32_t* dst);

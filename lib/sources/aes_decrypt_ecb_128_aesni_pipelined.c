@@ -3,6 +3,8 @@
 #include "aes_defines.h"
 #include <wmmintrin.h> 
 
+// AES 128 ECB decryption. Use pipelined AES instructions. Load key schedule once.
+
 void aes_decrypt_ecb_128_aesni_pipelined(uint8_t* input, uint8_t* output, uint32_t byteLen, uint8_t* keySchedule)
 {
     uint32_t nBlocks = byteLen / AES_BLOCK_SIZE;
@@ -14,15 +16,21 @@ void aes_decrypt_ecb_128_aesni_pipelined(uint8_t* input, uint8_t* output, uint32
     __m128i* w = (__m128i*)keySchedule;
     __m128i roundKeys[NR128 + 1];
 
+    // Load key schedule from memory. 
+    // In best case, all key schedule blocks will not be removed from registers during function execution.
     roundKeys[0] = _mm_loadu_si128(&w[NR128]);
 
     for (uint32_t round = 1; round < NR128; round++)
     {
+        // Translate key scedule from nornal form
+        // to equivalent inverse cipher form
+        // using invMixColumns transformation.
         roundKeys[round] = _mm_aesimc_si128(_mm_loadu_si128(&w[NR128 - round]));
     }
     
     roundKeys[NR128] = _mm_loadu_si128(&w[0]);
 
+    // Decrypt 4 blocks together using pipeline.
     for(uint32_t i=0; i < nPipeRepeat; i++)
     {
         block0 = _mm_loadu_si128(&in[i * AES_PIPELINE_SIZE + 0]);
@@ -54,6 +62,7 @@ void aes_decrypt_ecb_128_aesni_pipelined(uint8_t* input, uint8_t* output, uint32
         _mm_storeu_si128(&out[i * AES_PIPELINE_SIZE + 3], block3);
     }
 
+    // Encrypt tail.
     for(uint32_t i=nPipeRepeat * AES_PIPELINE_SIZE; i < nBlocks; i++)
     {
         block0 = _mm_loadu_si128(&in[i]);
