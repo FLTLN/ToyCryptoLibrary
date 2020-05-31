@@ -2,6 +2,7 @@
 
 #include "aes_defines.h"
 #include "aes_routine_noop.h"
+#include "aes_lookup_tables.h"
 
 void aes_decrypt_ecb_128_noop(uint8_t* input, uint8_t* output, uint32_t byteLen, uint8_t* keySchedule)
 {

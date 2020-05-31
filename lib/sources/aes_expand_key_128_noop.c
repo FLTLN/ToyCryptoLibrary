@@ -2,6 +2,7 @@
 
 #include "aes_defines.h"
 #include "aes_routine_noop.h"
+#include "aes_lookup_tables.h"
 
 // This function perform Key Expansion Routine used to generate a series of Round Keys from the 128 bit Cipher Key.
 
