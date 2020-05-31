@@ -33,7 +33,7 @@ bool t_aes_encrypt_ecb_128_noop()
     return isPassed;
 };
 
-bool t_aes_encrypt_ecb_128_noop_cat()
+bool t_aes_encrypt_ecb_128(void (*encrypt)(uint8_t*, uint8_t*, uint32_t, uint8_t*))
 {
     uint8_t key[] = {0x2b,0x7e,0x15,0x16,0x28,0xae,0xd2,0xa6,0xab,0xf7,0x15,0x88,0x09,0xcf,0x4f,0x3c};
     uint8_t plain1[] = {0x6b,0xc1,0xbe,0xe2,0x2e,0x40,0x9f,0x96,0xe9,0x3d,0x7e,0x11,0x73,0x93,0x17,0x2a};
@@ -60,7 +60,7 @@ bool t_aes_encrypt_ecb_128_noop_cat()
     for (size_t i = 0; i < 4; i++)
     {
         bufWipe(cipher, 16);
-        aes_encrypt_ecb_128_noop(ptxts[i], cipher, 16, keySchedule);
+        encrypt(ptxts[i], cipher, 16, keySchedule);
 
         isPassed = bufCmp(ctxts[i], cipher, 16);
         std::cout << "test " << i;
@@ -84,4 +84,19 @@ bool t_aes_encrypt_ecb_128_noop_cat()
         
     }
     return isPassed;
+};
+
+bool t_aes_encrypt_ecb_128_noop_cat()
+{
+    return t_aes_encrypt_ecb_128(aes_encrypt_ecb_128_noop);  
+};
+
+bool t_aes_encrypt_ecb_128_aesni_iterative_cat()
+{
+    return t_aes_encrypt_ecb_128(aes_encrypt_ecb_128_aesni_iterative);
+};
+
+bool t_aes_encrypt_ecb_128_aesni_pipelined_cat()
+{
+    return t_aes_encrypt_ecb_128(aes_encrypt_ecb_128_aesni_pipelined);
 };

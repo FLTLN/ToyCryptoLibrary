@@ -33,7 +33,7 @@ bool t_aes_decrypt_ecb_128_noop()
     return isPassed;
 };
 
-bool t_aes_decrypt_ecb_128_noop_cat()
+bool t_aes_decrypt_ecb_128(void (*decrypt)(uint8_t*, uint8_t*, uint32_t, uint8_t*))
 {
     uint8_t key[] = {0x2b,0x7e,0x15,0x16,0x28,0xae,0xd2,0xa6,0xab,0xf7,0x15,0x88,0x09,0xcf,0x4f,0x3c};
     uint8_t cipher1[] = {0x3a,0xd7,0x7b,0xb4,0x0d,0x7a,0x36,0x60,0xa8,0x9e,0xca,0xf3,0x24,0x66,0xef,0x97};
@@ -60,7 +60,7 @@ bool t_aes_decrypt_ecb_128_noop_cat()
     for (size_t i = 0; i < 4; i++)
     {
         bufWipe(expectedPlain, 16);
-        aes_decrypt_ecb_128_noop(ctxts[i], expectedPlain, 16, keySchedule);
+        decrypt(ctxts[i], expectedPlain, 16, keySchedule);
 
         isPassed = bufCmp(ptxts[i], expectedPlain, 16);
         std::cout << "test " << i;
@@ -71,9 +71,9 @@ bool t_aes_decrypt_ecb_128_noop_cat()
             std::cout << hexDump(key, 16) << "\n";
             std::cout << "cipher text          : \n";
             std::cout << hexDump(ctxts[i], 16) << "\n";
-            std::cout << "expected expectedPlain text  : \n";
+            std::cout << "expected plain text  : \n";
             std::cout << hexDump(ptxts[i], 16) << "\n";
-            std::cout << "get expectedPlain text       : \n";
+            std::cout << "get plain text       : \n";
             std::cout << hexDump(expectedPlain, 16) << "\n";
             return isPassed;
         }
@@ -84,4 +84,19 @@ bool t_aes_decrypt_ecb_128_noop_cat()
         
     }
     return isPassed;
+};
+
+bool t_aes_decrypt_ecb_128_noop_cat()
+{
+    return t_aes_decrypt_ecb_128(aes_decrypt_ecb_128_noop);  
+};
+
+bool t_aes_decrypt_ecb_128_aesni_iterative_cat()
+{
+    return t_aes_decrypt_ecb_128(aes_decrypt_ecb_128_aesni_iterative);
+};
+
+bool t_aes_decrypt_ecb_128_aesni_pipelined_cat()
+{
+    return t_aes_decrypt_ecb_128(aes_decrypt_ecb_128_aesni_pipelined);
 };

@@ -12,6 +12,13 @@
 #define NR128 (10)  // Number of rounds, which is a function of Nk and Nb (which is fixed). 
                     // For 128 bit key, Nr = 10.
 
-#define AES_BLOCK_SIZE (16) // AES block size in bytes.
+#define AES_BLOCK_SIZE    (16)  // AES block size in bytes.
+#define AES_PIPELINE_SIZE (4)   // Number of blocks processed together in pipelined version.
+
+#if AES_PIPELINE_SIZE != 4
+    #error  AES_PIPELINE_SIZE value is changed. Pipelined version of AES might be broken. \
+            Code for pipelined version do not automatically scaled to pipeline size. \
+            Please, take a look to aes_*_aesni_pipelined.c files, if you change this value.
+#endif
 
 #endif // __AES_DEFINES_H_

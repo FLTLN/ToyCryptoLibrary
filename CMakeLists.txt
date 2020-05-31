@@ -9,6 +9,8 @@ message (STATUS "CMAKE_GENERATOR ....................... " ${CMAKE_GENERATOR})
 message (STATUS "CMAKE_C_COMPILER_ID ................... " ${CMAKE_C_COMPILER_ID})
 message (STATUS "CMAKE_CXX_COMPILER_ID ................. " ${CMAKE_CXX_COMPILER_ID})
 
+set(CMAKE_C_FLAGS "-maes")
+
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/lib")
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/test")
 add_subdirectory("${CMAKE_CURRENT_SOURCE_DIR}/perf")
