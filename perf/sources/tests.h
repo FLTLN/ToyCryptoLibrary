@@ -10,7 +10,18 @@ extern "C"
 #include <stdint.h>
 #include <iostream>
 
-double p_aes_encrypt_ecb_128_noop(size_t payloadLen, size_t nIterations);
-double p_aes_decrypt_ecb_128_noop(size_t payloadLen, size_t nIterations);
+static __inline__ unsigned long long rdtsc(void)
+{
+    unsigned hi, lo;
+    __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
+    return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32 );
+}
+
+unsigned long long p_aes_encrypt_ecb_128_noop(size_t payloadLen, size_t nIterations);
+unsigned long long p_aes_decrypt_ecb_128_noop(size_t payloadLen, size_t nIterations);
+unsigned long long p_aes_encrypt_ecb_128_aesni_iterative(size_t payloadLen, size_t nIterations);
+unsigned long long p_aes_decrypt_ecb_128_aesni_iterative(size_t payloadLen, size_t nIterations);
+unsigned long long p_aes_encrypt_ecb_128_aesni_pipelined(size_t payloadLen, size_t nIterations);
+unsigned long long p_aes_decrypt_ecb_128_aesni_pipelined(size_t payloadLen, size_t nIterations);
 
 #endif
