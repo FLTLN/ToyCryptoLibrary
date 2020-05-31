@@ -3,6 +3,8 @@
 #include "aes_defines.h"
 #include <wmmintrin.h> 
 
+// AES 128 ECB encryption. Use AES instructions.
+
 void aes_encrypt_ecb_128_aesni_iterative(uint8_t* input, uint8_t* output, uint32_t byteLen, uint8_t* keySchedule)
 {
     uint32_t nBlocks = byteLen / AES_BLOCK_SIZE;

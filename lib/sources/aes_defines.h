@@ -1,6 +1,8 @@
 #ifndef __AES_DEFINES_H_
 #define __AES_DEFINES_H_
- 
+
+// This header contain common defines for AES cipher.
+
 #define NB (4)      // Number of columns (32-bit words) comprising the State. 
                     // For this standard, Nb = 4.
                     // State is an Intermediate Cipher result that can be pictured as a rectangular array of bytes, 

@@ -3,6 +3,8 @@
 #include "aes_defines.h"
 #include <wmmintrin.h> 
 
+// AES 128 ECB encryption. Use pipelined AES instructions. Load key schedule once.
+
 void aes_encrypt_ecb_128_aesni_pipelined(uint8_t* input, uint8_t* output, uint32_t byteLen, uint8_t* keySchedule)
 {
     uint32_t nBlocks = byteLen / AES_BLOCK_SIZE;
@@ -14,11 +16,14 @@ void aes_encrypt_ecb_128_aesni_pipelined(uint8_t* input, uint8_t* output, uint32
     __m128i* w = (__m128i*)keySchedule;
     __m128i roundKeys[NR128 + 1];
 
+    // Load key schedule from memory. 
+    // In best case, all key schedule blocks will not be removed from registers during function execution.
     for (uint32_t round = 0; round < NR128 + 1; round++)
     {
         roundKeys[round] = _mm_loadu_si128(&w[round]);
     }
 
+    // Encrypt 4 blocks together using pipeline.
     for(uint32_t i=0; i < nPipeRepeat; i++)
     {
         block0 = _mm_loadu_si128(&in[i * AES_PIPELINE_SIZE + 0]);
@@ -50,6 +55,7 @@ void aes_encrypt_ecb_128_aesni_pipelined(uint8_t* input, uint8_t* output, uint32
         _mm_storeu_si128(&out[i * AES_PIPELINE_SIZE + 3], block3);
     }
 
+    // Encrypt tail.
     for(uint32_t i=nPipeRepeat * AES_PIPELINE_SIZE; i < nBlocks; i++)
     {
         block0 = _mm_loadu_si128(&in[i]);

@@ -3,6 +3,8 @@
 #include "aes_defines.h"
 #include "aes_lookup_tables.h"
 
+// AES 128 ECB encryption. Unrolled loops. Polynomial multiplication using precomputed lookup table.
+
 void aes_encrypt_ecb_128_pure_c(uint8_t* input, uint8_t* output, uint32_t byteLen, uint8_t* keySchedule)
 {
     uint32_t nBlocks = byteLen / AES_BLOCK_SIZE;
@@ -35,7 +37,6 @@ void aes_encrypt_ecb_128_pure_c(uint8_t* input, uint8_t* output, uint32_t byteLe
         
         for (uint32_t round = 1; round < NR128; round++)
         {
-            // Use lookup table.
             subBytes(state);
 
             //shiftRows(state);
@@ -61,7 +62,7 @@ void aes_encrypt_ecb_128_pure_c(uint8_t* input, uint8_t* output, uint32_t byteLe
             state[2] = tmpState[2];
             state[3] = tmpState[3];
 
-            //mixColumns(state);
+            //mixColumns(state) with polynomial multiplication using precomputed lookup table.
             srcColumn = *(state + 0);
             dstColumn = (uint8_t*)(state + 0);
 
@@ -102,7 +103,7 @@ void aes_encrypt_ecb_128_pure_c(uint8_t* input, uint8_t* output, uint32_t byteLe
         }
         
         subBytes(state);
-        //shiftRows(state);
+
         shiftRowsToState[0]  = shiftRowsFromState[0];
         shiftRowsToState[1]  = shiftRowsFromState[5];
         shiftRowsToState[2]  = shiftRowsFromState[10];

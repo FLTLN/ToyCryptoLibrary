@@ -3,9 +3,7 @@
 #include "aes_defines.h"
 #include <wmmintrin.h> 
 
-#define isolatedInvMixColumns(block)                \
-_mm_aesenclast_si128(block, _mm_setzero_si128());   \
-_mm_aesdec_si128(block, _mm_setzero_si128())
+// AES 128 ECB decryption. Use AES instructions.
 
 void aes_decrypt_ecb_128_aesni_iterative(uint8_t* input, uint8_t* output, uint32_t byteLen, uint8_t* keySchedule)
 {
@@ -27,9 +25,9 @@ void aes_decrypt_ecb_128_aesni_iterative(uint8_t* input, uint8_t* output, uint32
         {
             roundKey = _mm_loadu_si128(&w[NR128 - round]);
 
-            // translate key scedule from nornal form
+            // Translate key scedule from nornal form
             // to equivalent inverse cipher form
-            // using invMixColumns transformation
+            // using invMixColumns transformation.
             roundKey = _mm_aesimc_si128(roundKey);
 
             block = _mm_aesdec_si128(block, roundKey);

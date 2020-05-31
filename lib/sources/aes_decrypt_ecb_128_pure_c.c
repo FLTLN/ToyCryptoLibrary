@@ -3,6 +3,8 @@
 #include "aes_defines.h"
 #include "aes_lookup_tables.h"
 
+// AES 128 ECB decryption. Unrolled loops. Polynomial multiplication using precomputed lookup table.
+
 void aes_decrypt_ecb_128_pure_c(uint8_t* input, uint8_t* output, uint32_t byteLen, uint8_t* keySchedule)
 {
     uint32_t nBlocks = byteLen / AES_BLOCK_SIZE;
@@ -58,17 +60,15 @@ void aes_decrypt_ecb_128_pure_c(uint8_t* input, uint8_t* output, uint32_t byteLe
             state[2] = tmpState[2];
             state[3] = tmpState[3];
 
-            // Use lookup table.
             invSubBytes(state);
 
-            // addRoundKey(state, w, NR128 - round);
+            // addRoundKey(state, w, NR128 - round) with unrolled loop.
             state[0] = state[0] ^ w[(NR128 - round) * NB + 0];
             state[1] = state[1] ^ w[(NR128 - round) * NB + 1];
             state[2] = state[2] ^ w[(NR128 - round) * NB + 2];
             state[3] = state[3] ^ w[(NR128 - round) * NB + 3];
 
-            // invMixColumns(state);
-
+            //invMixColumns(state) with polynomial multiplication using precomputed lookup table.
             srcColumn = *(state + 0);
             dstColumn = (uint8_t*)(state + 0);
 
@@ -125,7 +125,6 @@ void aes_decrypt_ecb_128_pure_c(uint8_t* input, uint8_t* output, uint32_t byteLe
         state[2] = tmpState[2];
         state[3] = tmpState[3];
 
-        // Use lookup table.
         invSubBytes(state);
         // addRoundKey(state, w, 0) with unrolled loop.
         state[0] = state[0] ^ w[0 * NB + 0];
