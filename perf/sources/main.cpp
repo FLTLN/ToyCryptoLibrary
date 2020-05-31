@@ -27,17 +27,22 @@ int main()
     int all = 0;
 
     WARMUP
-    EXECUTE_PRESET_8K100(p_aes_encrypt_ecb_128_noop)
-    EXECUTE_PRESET_8K100(p_aes_encrypt_ecb_128_pure_c)
 
+    // non-optimized
+    EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_noop)
+    EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_noop)
 
-    //EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_noop)
-    //EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_noop)
-    //EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_pure_c)
-    // EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_aesni_iterative)
-    // EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_aesni_iterative)
-    // EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_aesni_pipelined)
-    // EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_aesni_pipelined)
+    // pure c with optimization
+    EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_pure_c)
+    EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_pure_c)
+
+    // aesni without pipeline
+    EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_aesni_iterative)
+    EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_aesni_iterative)
+
+    // pipelined aesni
+    EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_aesni_pipelined)
+    EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_aesni_pipelined)
 
     std::cout << "Testing done\n";
     std::cout << "───────────────────────────────────────────────\n";

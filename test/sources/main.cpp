@@ -32,6 +32,7 @@ int main()
 
     // pure c with optimization
     EXECUTE_TEST(t_aes_encrypt_ecb_128_pure_c_cat)
+    EXECUTE_TEST(t_aes_decrypt_ecb_128_pure_c_cat)
 
     // aesni without pipeline
     EXECUTE_TEST(t_aes_encrypt_ecb_128_aesni_iterative_cat)
@@ -40,6 +41,10 @@ int main()
     // pipelined aesni
     EXECUTE_TEST(t_aes_encrypt_ecb_128_aesni_pipelined_cat)
     EXECUTE_TEST(t_aes_decrypt_ecb_128_aesni_pipelined_cat)
+
+    // pipelined aesni, long payload
+    EXECUTE_TEST(t_aes_encrypt_ecb_128_aesni_pipelined_cat_long)
+    EXECUTE_TEST(t_aes_decrypt_ecb_128_aesni_pipelined_cat_long)
 
     std::cout << "Testing done\n";
     std::cout << "───────────────────────────────────────────────\n";

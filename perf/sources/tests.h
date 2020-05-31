@@ -23,6 +23,7 @@ unsigned long long p_aes_decrypt_ecb_128_noop(size_t payloadLen, size_t nIterati
 
 // pure c with optimization
 unsigned long long p_aes_encrypt_ecb_128_pure_c(size_t payloadLen, size_t nIterations);
+unsigned long long p_aes_decrypt_ecb_128_pure_c(size_t payloadLen, size_t nIterations);
 
 // aesni without pipeline
 unsigned long long p_aes_encrypt_ecb_128_aesni_iterative(size_t payloadLen, size_t nIterations);
