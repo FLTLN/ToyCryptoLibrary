@@ -91,6 +91,11 @@ bool t_aes_encrypt_ecb_128_noop_cat()
     return t_aes_encrypt_ecb_128(aes_encrypt_ecb_128_noop);  
 };
 
+bool t_aes_encrypt_ecb_128_pure_c_cat()
+{
+    return t_aes_encrypt_ecb_128(aes_encrypt_ecb_128_pure_c);  
+};
+
 bool t_aes_encrypt_ecb_128_aesni_iterative_cat()
 {
     return t_aes_encrypt_ecb_128(aes_encrypt_ecb_128_aesni_iterative);

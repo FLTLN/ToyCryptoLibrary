@@ -28,6 +28,11 @@ unsigned long long p_aes_decrypt_ecb_128_noop(size_t payloadLen, size_t nIterati
     return p_aes_ecb(aes_decrypt_ecb_128_noop, payloadLen, nIterations);
 };
 
+unsigned long long p_aes_encrypt_ecb_128_pure_c(size_t payloadLen, size_t nIterations)
+{
+    return p_aes_ecb(aes_encrypt_ecb_128_pure_c, payloadLen, nIterations);
+};
+
 unsigned long long p_aes_encrypt_ecb_128_aesni_iterative(size_t payloadLen, size_t nIterations)
 {
     return p_aes_ecb(aes_encrypt_ecb_128_aesni_iterative, payloadLen, nIterations);

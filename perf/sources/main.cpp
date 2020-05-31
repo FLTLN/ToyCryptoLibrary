@@ -12,6 +12,7 @@ std::cout << "Done in " << time << " clocks\n"; }                   \
 std::cout << "───────────────────────────────────────────────\n\n";
 
 #define EXECUTE_PRESET_8K1K(test)  EXECUTE_TEST(test, 8192, 1000)
+#define EXECUTE_PRESET_8K100(test)  EXECUTE_TEST(test, 8192, 100)
 #define EXECUTE_PRESET_8K100K(test)  EXECUTE_TEST(test, 8192, 10000000)
 
 #define WARMUP \
@@ -26,12 +27,17 @@ int main()
     int all = 0;
 
     WARMUP
+    EXECUTE_PRESET_8K100(p_aes_encrypt_ecb_128_noop)
+    EXECUTE_PRESET_8K100(p_aes_encrypt_ecb_128_pure_c)
+
+
     //EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_noop)
     //EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_noop)
-    EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_aesni_iterative)
-    EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_aesni_iterative)
-    EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_aesni_pipelined)
-    EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_aesni_pipelined)
+    //EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_pure_c)
+    // EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_aesni_iterative)
+    // EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_aesni_iterative)
+    // EXECUTE_PRESET_8K1K(p_aes_encrypt_ecb_128_aesni_pipelined)
+    // EXECUTE_PRESET_8K1K(p_aes_decrypt_ecb_128_aesni_pipelined)
 
     std::cout << "Testing done\n";
     std::cout << "───────────────────────────────────────────────\n";

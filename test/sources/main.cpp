@@ -21,13 +21,23 @@ int main()
     int failed = 0;
     int all = 0;
     
+    // key expansion
     EXECUTE_TEST(t_aes_expandKey_128_noop)
+
+    // non-optimized
     EXECUTE_TEST(t_aes_encrypt_ecb_128_noop)
     EXECUTE_TEST(t_aes_encrypt_ecb_128_noop_cat)
     EXECUTE_TEST(t_aes_decrypt_ecb_128_noop)
     EXECUTE_TEST(t_aes_decrypt_ecb_128_noop_cat)
+
+    // pure c with optimization
+    EXECUTE_TEST(t_aes_encrypt_ecb_128_pure_c_cat)
+
+    // aesni without pipeline
     EXECUTE_TEST(t_aes_encrypt_ecb_128_aesni_iterative_cat)
     EXECUTE_TEST(t_aes_decrypt_ecb_128_aesni_iterative_cat)
+
+    // pipelined aesni
     EXECUTE_TEST(t_aes_encrypt_ecb_128_aesni_pipelined_cat)
     EXECUTE_TEST(t_aes_decrypt_ecb_128_aesni_pipelined_cat)
 
