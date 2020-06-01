@@ -1,4 +1,4 @@
-name: CI_CD
+name: CI/CD
 
 on:
   pull_request:
@@ -52,4 +52,4 @@ jobs:
             name: TCL binaries [commit sha - ${{ github.sha }}]
             
         - name: ls
-          run: ls
+          run: cd "TCL binaries [commit sha - ${{ github.sha }}]" && ls
