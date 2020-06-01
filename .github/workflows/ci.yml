@@ -10,6 +10,14 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
+   
+    - name: style check
+      uses: DoozyX/clang-format-lint-action@v0.5
+      with:
+        source: '.'
+        extensions: 'h,cpp,c'
+        clangFormatVersion: 9
+        style: llvm
       
     - name: build all
       run:  chmod +x scripts/build_all.sh && scripts/build_all.sh
