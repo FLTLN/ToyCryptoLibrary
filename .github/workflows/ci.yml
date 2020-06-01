@@ -10,33 +10,43 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-
-    - name: cmake
-      run: cmake CMakeLists.txt -B"build" &> cmake.log 
+      
+    # Style check can be turned on, but it failed for now, because there is no suitable config. 
+      
+    # - name: style check
+    #  uses: DoozyX/clang-format-lint-action@v0.5
+    #  with:
+    #    source: '.'
+    #    extensions: 'h,cpp,c'
+    #    clangFormatVersion: 9
+    #    style: llvm
+      
+    - name: build all
+      run:  chmod +x scripts/build_all.sh && scripts/build_all.sh
         
-    - name: upload cmake log  
+    - name: upload build logs
       uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: cmake log
-        path: cmake.log
-        
-    - name: make
-      run: cd build && make -j8 &> make.log
+        name: TCL build logs [commit sha - ${{ github.sha }}]
+        path: logs
 
-    - name: upload make log
+    - name: run algorithmic tests
+      run:  chmod +x scripts/run_alg_tests.sh && scripts/run_alg_tests.sh
+        
+    - name: upload tests logs 
       uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: make log
-        path: make.log
-          
-    - name: run tests
-      run: cd build/test && ./tests &> tests.log
-    
-    - name: upload tests execution log
+        name: TCL build and test logs [commit sha - ${{ github.sha }}]
+        path: logs
+      
+    - name: collect binaries 
+      run:  chmod +x scripts/collect_binaries.sh && scripts/collect_binaries.sh
+           
+    - name: upload binaries 
       uses: actions/upload-artifact@v1
-      if: failure()
+      if: success()
       with:
-        name: tests execution log
-        path: build/test/tests.log
+        name: TCL binaries [commit sha - ${{ github.sha }}]
+        path: binaries
