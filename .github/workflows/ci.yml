@@ -17,11 +17,11 @@ jobs:
     - name: build all
       run:  chmod +x scripts/build_all.sh && scripts/build_all.sh
         
-    - name: upload build logs 
+    - name: upload build logs
       uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: build logs
+        name: build logs [commit ${{ github.sha }}]
         path: logs
 
     - name: run algorithmic tests
@@ -31,7 +31,7 @@ jobs:
       uses: actions/upload-artifact@v1
       #if: failure()
       with:
-        name: build and test logs logs
+        name: build and test logs [commit ${{ github.sha }}]
         path: logs
         
 
