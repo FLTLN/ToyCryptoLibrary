@@ -54,7 +54,7 @@ jobs:
         - name: Run unit tests
           run: cd "TCL binaries [commit sha - ${{ github.sha }}]" && chmod +x tests && ./tests &> tests.log
           
-        - name: Upload build logs
+        - name: Upload testing logs
           uses: actions/upload-artifact@v1
           if: failure()
           with:
