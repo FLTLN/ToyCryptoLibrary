@@ -10,7 +10,10 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-
+      
+    - name: get env
+      run:  env
+      
     - name: build all
       run:  chmod +x scripts/build_all.sh && scripts/build_all.sh
         
@@ -18,7 +21,7 @@ jobs:
       uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: ${{ $GITHUB_SHA }} build logs
+        name: build logs
         path: logs
 
     - name: run algorithmic tests
@@ -28,7 +31,7 @@ jobs:
       uses: actions/upload-artifact@v1
       #if: failure()
       with:
-        name: ${{ $GITHUB_SHA }} build and test logs logs
+        name: build and test logs logs
         path: logs
         
 
