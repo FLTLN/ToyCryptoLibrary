@@ -18,7 +18,7 @@ jobs:
       uses: actions/upload-artifact@v1
       if: failure()
       with:
-        name: $GITHUB_SHA build logs
+        name: ${{ $GITHUB_SHA }} build logs
         path: logs
 
     - name: run algorithmic tests
@@ -26,7 +26,7 @@ jobs:
         
     - name: upload tests logs 
       uses: actions/upload-artifact@v1
-      if: failure()
+      #if: failure()
       with:
         name: ${{ $GITHUB_SHA }} build and test logs logs
         path: logs
