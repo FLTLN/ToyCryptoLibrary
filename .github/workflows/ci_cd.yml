@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI-CD
 
 on:
   pull_request:
@@ -51,5 +51,12 @@ jobs:
           with:
             name: TCL binaries [commit sha - ${{ github.sha }}]
             
-        - name: ls
-          run: cd "TCL binaries [commit sha - ${{ github.sha }}]" && ls
+        - name: Run unit tests
+          run: cd "TCL binaries [commit sha - ${{ github.sha }}]" && chmod +x tests && ./tests &> tests.log
+          
+        - name: Upload build logs
+          uses: actions/upload-artifact@v1
+          # if: failure()
+          with:
+            name: TCL testing logs [commit sha - ${{ github.sha }}]
+            path: "TCL binaries [commit sha - ${{ github.sha }}]/tests.log"
