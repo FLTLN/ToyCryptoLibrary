@@ -12,7 +12,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: build all
-      run:  chmod + x scripts/build_all.sh && scripts/build_all.sh
+      run:  chmod +x scripts/build_all.sh && scripts/build_all.sh
         
     - name: upload build logs 
       uses: actions/upload-artifact@v1
