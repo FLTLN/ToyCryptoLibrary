@@ -32,7 +32,7 @@ jobs:
           path: logs
       
       - name: Run tests
-        run:  chmod +x scripts/run_alg_tests.sh && run_alg_tests.sh
+        run:  chmod +x scripts/run_alg_tests.sh && scripts/run_alg_tests.sh
       
       - name: Upload testing logs
         uses: actions/upload-artifact@v1
