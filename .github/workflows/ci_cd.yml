@@ -30,7 +30,17 @@ jobs:
         with:
           name: TCL build logs [commit sha - ${{ github.sha }}]
           path: logs
-
+      
+      - name: Run tests
+        run:  chmod +x scripts/run_alg_tests.sh && scripts/run_alg_tests.sh
+      
+      - name: Upload testing logs
+        uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: TCL testing logs [commit sha - ${{ github.sha }}]
+          path: logs/alg_tests.log
+        
       - name: Collect binaries 
         run:  chmod +x scripts/collect_binaries.sh && scripts/collect_binaries.sh
 
@@ -51,12 +61,11 @@ jobs:
           with:
             name: TCL binaries [commit sha - ${{ github.sha }}]
             
-        - name: Run unit tests
-          run: cd "TCL binaries [commit sha - ${{ github.sha }}]" && chmod +x tests && ./tests &> tests.log
+        - name: Run performance tests
+          run: cd "TCL binaries [commit sha - ${{ github.sha }}]" && chmod +x perfs && ./perfs &> perf_tests.log
           
-        - name: Upload testing logs
+        - name: Upload performance testing logs
           uses: actions/upload-artifact@v1
-          if: failure()
           with:
-            name: TCL testing logs [commit sha - ${{ github.sha }}]
-            path: "TCL binaries [commit sha - ${{ github.sha }}]/tests.log"
+            name: TCL performance testing logs [commit sha - ${{ github.sha }}]
+            path: "TCL binaries [commit sha - ${{ github.sha }}]/perf_tests.log"
