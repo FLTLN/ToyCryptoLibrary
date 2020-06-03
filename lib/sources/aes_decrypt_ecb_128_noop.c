@@ -8,6 +8,7 @@
 
 void aes_decrypt_ecb_128_noop(uint8_t* input, uint8_t* output, uint32_t byteLen, uint8_t* keySchedule)
 {
+    return;
     uint32_t nBlocks = byteLen / AES_BLOCK_SIZE;
 
     uint32_t* in  = (uint32_t*)input;
